@@ -4,7 +4,7 @@ var Item = mongoose.model('Item');
 
 // return a list of titles
 router.get('/', function(req, res, next) {
-  Item.find().distinct('title').then(function(tags){
+  Item.find().distinct('title').then(function(titles){
     return res.json({titles: titles});
   }).catch(next);
 });
