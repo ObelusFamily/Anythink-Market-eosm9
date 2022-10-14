@@ -55,7 +55,7 @@ router.get("/", auth.optional, function(req, res, next) {
   }
 // TODO add query for title
   if (typeof req.query.title !== 'undefined') {
-    title = req.query.title
+    query.title = req.query.title
   }
 
   Promise.all([
