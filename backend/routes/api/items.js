@@ -40,7 +40,6 @@ router.get("/", auth.optional, function(req, res, next) {
   var query = {};
   var limit = 100;
   var offset = 0;
-  var title = '';
 
   if (typeof req.query.limit !== "undefined") {
     limit = req.query.limit;
@@ -54,9 +53,9 @@ router.get("/", auth.optional, function(req, res, next) {
     query.tagList = { $in: [req.query.tag] };
   }
 
-  
+// TODO pretty sure I need to add this filter here, but I'm missing something either here or elsewhere
   if (typeof req.query.title !== 'undefined') {
-    query.title = { $regex: req.query.title, $options: 'i' };
+    query.title = { $text: [req.query.title] };
   }
 
   Promise.all([
