@@ -53,9 +53,10 @@ router.get("/item", auth.optional, function(req, res, next) {
     query.tagList = { $in: [req.query.tag] };
   }
 
-// TODO pretty sure I need to add this filter here, but I'm missing something either here or elsewhere
   if (typeof req.query.title !== 'undefined') {
-    query.title = { $text: [req.query.title] };
+    query.title = { $text: 
+      { $search: 'item' }
+    }
   }
 
   Promise.all([
