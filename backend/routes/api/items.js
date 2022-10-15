@@ -36,7 +36,7 @@ router.param("comment", function(req, res, next, id) {
     .catch(next);
 });
 
-router.get("/item", auth.optional, function(req, res, next) {
+router.get("/", auth.optional, function(req, res, next) {
   var query = {};
   var limit = 100;
   var offset = 0;
@@ -51,12 +51,6 @@ router.get("/item", auth.optional, function(req, res, next) {
 
   if (typeof req.query.tag !== "undefined") {
     query.tagList = { $in: [req.query.tag] };
-  }
-
-  if (typeof req.query.title !== 'undefined') {
-    query.title = { $text: 
-      { $search: 'item' }
-    }
   }
 
   Promise.all([
