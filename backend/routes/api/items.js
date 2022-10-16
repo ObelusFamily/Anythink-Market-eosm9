@@ -54,9 +54,7 @@ router.get("/", auth.optional, function(req, res, next) {
   }
 
   if (typeof req.query.title !== 'undefined') {
-    query.title = { $text: {
-      $search: req.query.title
-    }}
+    query.title = {$regex: req.query.title, $options: 'i'};
   }
 
   Promise.all([
@@ -113,10 +111,6 @@ router.get("/feed", auth.required, function(req, res, next) {
 
   if (typeof req.query.offset !== "undefined") {
     offset = req.query.offset;
-  }
-
-  if (typeof req.query.title !== 'undefined') {
-    query.title = {$regex: req.query.title, $options: 'i'};
   }
 
   User.findById(req.payload.id).then(function(user) {
