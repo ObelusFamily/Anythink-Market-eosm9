@@ -115,6 +115,10 @@ router.get("/feed", auth.required, function(req, res, next) {
     offset = req.query.offset;
   }
 
+  if (typeof req.query.title !== 'undefined') {
+    query.title = {$regex: req.query.title, $options: 'i'};
+  }
+
   User.findById(req.payload.id).then(function(user) {
     if (!user) {
       return res.sendStatus(401);
